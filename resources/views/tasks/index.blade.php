@@ -21,13 +21,17 @@
                         @endif
                     </div>
                     <div class="d-flex gap-2 flex-shrink-0">
-                        <a href="{{ route('tasks.edit', $task) }}" class="btn btn-sm btn-outline-primary">Modifier</a>
-                        <form action="{{ route('tasks.destroy', $task) }}" method="POST" class="d-inline"
-                              onsubmit="return confirm('Supprimer cette tâche ?');">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-outline-danger">Supprimer</button>
-                        </form>
+                        @can('update', $task)
+                            <a href="{{ route('tasks.edit', $task) }}" class="btn btn-sm btn-outline-primary">Modifier</a>
+                        @endcan
+                        @can('delete', $task)
+                            <form action="{{ route('tasks.destroy', $task) }}" method="POST" class="d-inline"
+                                  onsubmit="return confirm('Supprimer cette tâche ?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-outline-danger">Supprimer</button>
+                            </form>
+                        @endcan
                     </div>
                 </div>
             </div>

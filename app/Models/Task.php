@@ -13,6 +13,7 @@ class Task extends Model
         'title',
         'description',
         'completed',
+        'user_id',
     ];
 
     protected function casts(): array
@@ -20,5 +21,10 @@ class Task extends Model
         return [
             'completed' => 'boolean',
         ];
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
